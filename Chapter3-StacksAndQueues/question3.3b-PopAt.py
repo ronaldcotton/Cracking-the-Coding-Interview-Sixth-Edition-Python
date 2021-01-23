@@ -50,33 +50,48 @@ class SetOfStacks:
     def __str__(self):
         s = ""
         for r in range(self.stack_index+1):
-            if not self.set[r].isEmpty():
-                s+=str(self.set[r])+'\n'
+            s+=str(self.set[r])+'\n'
         s+="---"
         return s
 
+    # because of PopAt(), required to check for gaps in the different
+    # stacks...
+
     def add(self, value):
-        if self.set[self.stack_index].isFull():
-            self.set.append(Stack())
-            self.stack_index+=1
+        for r in range(self.stack_index+1):
+            if self.set[r].isFull():
+                continue
+            else:
+                self.set[r].push(value)
+                return value
+        # if unable to place in the current stack_indexes --
+        # add another stack, increase stack_index and push
+        self.stack_index+=1
+        self.set.append(Stack())
         self.set[self.stack_index].push(value)
         return value
     
     def remove(self):
-        if self.stack_index == 0:
-            return None
         if self.set[self.stack_index].isEmpty():
             self.set.pop()
             self.stack_index-=1
         return self.set[self.stack_index].pop()
 
+    def PopAt(self, index):
+        if not self.set[index].isEmpty():
+            return self.set[index].pop()
+
 if __name__ == "__main__":
     s = SetOfStacks()
     print("add:")
     for r in range(21):
-        s.add(rando(1000))
+        s.add(rando(1))
         print(s)
-    print("remove:")
+    print("remove 10 random values:")
     for r in range(10):
-        s.remove()
+        s.PopAt(rando(4))
+        print(s)
+    print("add 5:")
+    for r in range(5):
+        s.add(rando(100))
         print(s)
