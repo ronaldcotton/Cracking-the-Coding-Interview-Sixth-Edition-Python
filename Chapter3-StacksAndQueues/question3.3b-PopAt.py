@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Question 3.3
-# Stack of Plates
+# Question 3.3b
+# Add PopAt() - Required changes to add() to fill in gaps to stacks
+# unsure if that was required, if you like other add() behavior, use
+# code from Q3.3
 
 from random import random
 
