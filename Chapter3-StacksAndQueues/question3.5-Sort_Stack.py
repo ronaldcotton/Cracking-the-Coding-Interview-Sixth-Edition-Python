@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 # Question 3.5 - Sort Stack
-# Hints - 15, 32, 43
 
 class Stack:
     def __init__(self):
@@ -18,7 +17,6 @@ class Stack:
         if len(self.stack) != 0:
             return self.stack.pop()
     
-    # stack = 1 2 4 5, temp_stack: 5 4 2 1 value = 3
     def push(self, value):
         return self.stack.append(value)
     
