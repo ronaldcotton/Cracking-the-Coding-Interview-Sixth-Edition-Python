@@ -6,7 +6,6 @@
 class Stack:
     def __init__(self):
         self.stack = []
-        self.temp = []
     
     def __str__(self):
         return str(self.stack)
