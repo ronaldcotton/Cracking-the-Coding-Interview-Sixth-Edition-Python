@@ -32,27 +32,25 @@ class Stack:
 
 def sort(stack):
 	temp_stack = Stack()
-	temp2_stack = Stack()
 	
 	if stack.isEmpty():
-		return
-	
+		return temp_stack
+
+	temp2_stack = Stack()
+
 	temp_stack.push(stack.pop())
 	
 	while not stack.isEmpty():	
 		if temp_stack.peek() < stack.peek():
 			temp_stack.push(stack.pop())
 		else:
-			while not temp_stack.isEmpty():
+			while not temp_stack.isEmpty() and temp_stack.peek() > stack.peek():
 				temp2_stack.push(temp_stack.pop())
 			temp_stack.push(stack.pop())
-			while not temp2_stack:
+			while not temp2_stack.isEmpty():
 				temp_stack.push(temp2_stack.pop())
 
-	while not temp_stack.isEmpty():
-		stack.push(temp_stack.pop())
-
-	return stack 
+	return temp_stack 
 
 if __name__ == "__main__":
     s = Stack()
@@ -64,9 +62,8 @@ if __name__ == "__main__":
     s.push(15)
     s.push(111)
     s.push(1)
-    #print(sort(s))
     print(s)
-    print(sort(s))
+    s = sort(s)
     print(s)
     print(s.pop())
     print(s.peek())
