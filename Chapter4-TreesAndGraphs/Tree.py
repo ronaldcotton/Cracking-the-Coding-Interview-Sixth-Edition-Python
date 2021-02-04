@@ -61,19 +61,6 @@ class BinaryNode:
 				print(str(self.data), end=' ')
 
 
-class BST:
-	def __init__(self, root=None):
-		self.root = root
-	
-	def __str__(self):
-		pass # TODO
-		
-	def set_root(self, root=None):
-		self.root = root
-	
-	def get_root(self):
-		return self.root
-
 if __name__ == "__main__":
 	root = BinaryNode(3)
 	root.insert(2)
