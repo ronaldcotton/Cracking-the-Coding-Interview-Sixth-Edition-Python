@@ -17,13 +17,13 @@ class BinaryNode:
 	def insert(self, data=None):
 		if data is None or self.data == data:
 			return None 
-		elif self.data < data:
+		elif self.data > data:
 			if self.left is not None:
 				return self.left.insert(data)
 			else:
 				self.left = BinaryNode(data)
 				return data
-		else: # self.data > data
+		else: # self.data < data
 			if self.right is not None:
 				return self.right.insert(data)
 			else:
@@ -67,10 +67,10 @@ if __name__ == "__main__":
 	root.insert(1)
 	root.insert(5)
 	root.insert(4)
-	print('inorder: ', end='')
+	print('inorder (ascending order): ', end='')
 	root.inorder_traversal()
-	print('\npreorder: ', end='')
+	print('\npreorder (root is first node visited): ', end='')
 	root.preorder_traversal()
-	print('\npostorder: ', end='')
+	print('\npostorder (root is last node visited): ', end='')
 	root.postorder_traversal()
 	print()
