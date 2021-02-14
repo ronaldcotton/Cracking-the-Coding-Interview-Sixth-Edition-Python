@@ -5,13 +5,13 @@
 
 # Adjacency is 
 class AdjacencyList:
-	def __init__(self, numOfNodes=1):
-		self.Matrix = [[] for _ in range(numOfNodes)]
+	def __init__(self, numOfNodes=None):
+		self.matrix = [[] for _ in range(numOfNodes)]
 	
-	# [1:-1] is a python trick to remove brackets
+	# [1:-1] is a python trick to remove brackets from a list
 	def __str__(self):
 		returnStr = ""
-		for index, result in enumerate(self.Matrix):
+		for index, result in enumerate(self.matrix):
 			returnStr+=str(index) + ": " + str(result)[1:-1] + "\n"
 		return returnStr
 		
@@ -20,10 +20,11 @@ class AdjacencyList:
 			return None
 		else:
 			try:
-				self.Matrix[Node].append(directedEdgeTo)
+				self.matrix[Node].append(directedEdgeTo)
 			except IndexError:
 				return None 
-	
+
+
 # See graphs on page 106 and number list on middle of page
 # Cracking the Coding Interview, 6th Edition
 
