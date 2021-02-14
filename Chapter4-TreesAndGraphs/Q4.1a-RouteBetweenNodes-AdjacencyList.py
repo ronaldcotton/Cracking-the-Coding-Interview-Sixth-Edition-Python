@@ -3,10 +3,8 @@
 
 # Adjacency List
 
-# Q4.1 - Route Between nodes
+# Q4.1 - Route Between Nodes
 
-# TODO - should have Node values be worth something different than the
-# index, otherwise breathFirstSearch is trivial
  
 class AdjacencyList:
 	def __init__(self, numOfNodes=None):
@@ -15,6 +13,7 @@ class AdjacencyList:
 			self.numOfNodes = numOfNodes
 			self.matrixVisited = []
 			self.searchReturnValue = None
+			self.path = ""
 		
 	# [1:-1] is a python trick to remove brackets from a list
 	def __str__(self):
@@ -48,6 +47,28 @@ class AdjacencyList:
 			if self.matrixVisited[m] == False:
 				self.depthFirstSearch(m, searchValue, True)
 		return self.searchReturnValue
+
+	def Path(self, startNode, endNode, recursed=False):
+		if recursed == False:
+			self.matrixVisited = [False] * self.numOfNodes
+			self.path = ""
+		if startNode == endNode:
+			print("return 1: None")
+			return None
+		if len(self.matrix) == 0 or self.matrixVisited == True:
+			print("return 2 None")
+			return None
+		self.matrixVisited[startNode] = True
+		for m in self.matrix[startNode]:
+			print("Start Node " + str(startNode) + " m " + str(m))
+			if self.matrixVisited[m] == False:
+				self.path += str(startNode) + " -> "
+				print(self.path)
+				self.Path(m, endNode, True)
+		print("return 3 " + self.path + str(endNode) + " "+ str(startNode))
+		#if endNode in self.matrix[startNode]:
+		return self.path + str(endNode)
+
 		
 	def breadthFirstSearch(self, searchValue, node=0):
 		# searchValue can never be greater than number of Nodes
@@ -79,13 +100,8 @@ if __name__ == "__main__":
 	Lst.add(5,4)
 	Lst.add(6,5)
 	print(Lst)
-	print("depthFirstSearch(3) - in first graph - Found " + str(Lst.depthFirstSearch(3)))
-	# if multiple graphs in your nodes, you must state a node in the
-	# nth graph to find in depthFirstSearch()
-	print("depthFirstSearch(6) - in second graph from node 4 - Found " + str(Lst.depthFirstSearch(6,4)))
-	print("breadthFirstSearch(3) - Found " + str(Lst.breadthFirstSearch(3)))
-	print("breadthFirstSearch(6) - Found " + str(Lst.breadthFirstSearch(6)))
-	print("breadthFirstSearch(10) - Found " + str(Lst.breadthFirstSearch(10)))
+	print("Path to node 3: " + str(Lst.Path(0,6)))
+
 
 
 
