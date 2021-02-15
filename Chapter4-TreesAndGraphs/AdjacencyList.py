@@ -15,6 +15,7 @@ class AdjacencyList:
 			self.numOfNodes = numOfNodes
 			self.matrixVisited = []
 			self.searchReturnValue = None
+			self.searchFor = None
 		
 	# [1:-1] is a python trick to remove brackets from a list
 	def __str__(self):
@@ -32,22 +33,27 @@ class AdjacencyList:
 			except IndexError:
 				return None 
 
+
 	# need the recursed parameter to set the values of 
 	# self.matrixVisited to the number of Nodes available.
 	def depthFirstSearch(self, searchValue, node=0, recursed=False):
 		if recursed == False:
 			self.matrixVisited = [False] * self.numOfNodes
 			self.searchReturnValue = None
-		if node == searchValue:
+			self.searchFor = searchValue
+		if node == self.searchFor:
 			self.searchReturnValue = node
 			return self.searchReturnValue
 		if len(self.matrix) == 0 or self.matrixVisited == True:
 			return self.searchReturnValue
 		self.matrixVisited[node] = True
 		for m in self.matrix[node]:
+			if m == self.searchFor:
+				self.searchReturnValue = m
 			if self.matrixVisited[m] == False:
-				self.depthFirstSearch(m, searchValue, True)
+				self.depthFirstSearch(searchValue, m, True)
 		return self.searchReturnValue
+
 		
 	def breadthFirstSearch(self, searchValue, node=0):
 		# searchValue can never be greater than number of Nodes

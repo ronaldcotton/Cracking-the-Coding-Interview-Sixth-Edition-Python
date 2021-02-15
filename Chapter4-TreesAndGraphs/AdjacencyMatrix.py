@@ -23,6 +23,8 @@ class AdjacencyMatrix:
 			except IndexError:
 				return None 
 	
+# TODO - Depth First Search and Breadth First Search
+
 # See top of page 107 of Cracking the Coding Interview, 6th Edition
 if __name__ == "__main__":
 	Mat = AdjacencyMatrix(4,4)

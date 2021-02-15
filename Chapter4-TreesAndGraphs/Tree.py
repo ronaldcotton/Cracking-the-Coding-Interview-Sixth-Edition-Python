@@ -11,7 +11,7 @@ class BinaryNode:
 
 	def __str__(self):
 		if self.data is not None:
-			return str(data)
+			return str(self.data)
 		return ""
 
 	def insert(self, data=None):
@@ -60,7 +60,19 @@ class BinaryNode:
 			if self.data is not None:
 				print(str(self.data), end=' ')
 
-
+# adapted from - https://stackoverflow.com/a/62856494
+def printTree(node, level=0, last=None):
+	if node != None:
+		printTree(node.left, level + 1, True)
+		if level==0:
+			print(node.data)
+		else:
+			char = '\\'
+			if last == True:
+				char = '/'
+			print(' ' * 4 * level + char, node.data)
+		printTree(node.right, level + 1, False)
+ 
 if __name__ == "__main__":
 	root = BinaryNode(3)
 	root.insert(2)
@@ -73,4 +85,7 @@ if __name__ == "__main__":
 	root.preorder_traversal()
 	print('\npostorder (root is last node visited): ', end='')
 	root.postorder_traversal()
-	print()
+	print('\nsideways tree:')
+	print('|lvl'*10) # seperates each level of tree
+	printTree(root)
+	

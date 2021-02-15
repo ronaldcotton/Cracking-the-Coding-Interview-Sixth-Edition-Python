@@ -5,7 +5,6 @@
 
 # Q4.1 - Route Between Nodes
 
- 
 class AdjacencyList:
 	def __init__(self, numOfNodes=None):
 		if numOfNodes is not None and numOfNodes > 0:
@@ -14,6 +13,7 @@ class AdjacencyList:
 			self.matrixVisited = []
 			self.searchReturnValue = None
 			self.path = ""
+			self.searchFor = None
 		
 	# [1:-1] is a python trick to remove brackets from a list
 	def __str__(self):
@@ -37,37 +37,41 @@ class AdjacencyList:
 		if recursed == False:
 			self.matrixVisited = [False] * self.numOfNodes
 			self.searchReturnValue = None
-		if node == searchValue:
+			self.searchFor = searchValue
+		if node == self.searchFor:
 			self.searchReturnValue = node
 			return self.searchReturnValue
 		if len(self.matrix) == 0 or self.matrixVisited == True:
 			return self.searchReturnValue
 		self.matrixVisited[node] = True
 		for m in self.matrix[node]:
+			if m == self.searchFor:
+				self.searchReturnValue = m
 			if self.matrixVisited[m] == False:
-				self.depthFirstSearch(m, searchValue, True)
+				self.depthFirstSearch(searchValue, m, True)
 		return self.searchReturnValue
 
-	def Path(self, startNode, endNode, recursed=False):
+	def depthFirstSearchPath(self, searchValue, node=0, recursed=False):
 		if recursed == False:
 			self.matrixVisited = [False] * self.numOfNodes
-			self.path = ""
-		if startNode == endNode:
-			print("return 1: None")
-			return None
+			self.searchReturnValue = None
+			self.searchFor = searchValue
+			self.path = str(node)
+		if node == self.searchFor:
+			self.searchReturnValue = node
+			return self.path
 		if len(self.matrix) == 0 or self.matrixVisited == True:
-			print("return 2 None")
-			return None
-		self.matrixVisited[startNode] = True
-		for m in self.matrix[startNode]:
-			print("Start Node " + str(startNode) + " m " + str(m))
+			return self.searchReturnValue
+		self.matrixVisited[node] = True
+		self.path += " -> "
+		for m in self.matrix[node]:
+			if m == self.searchFor:
+				self.searchReturnValue = m
 			if self.matrixVisited[m] == False:
-				self.path += str(startNode) + " -> "
-				print(self.path)
-				self.Path(m, endNode, True)
-		print("return 3 " + self.path + str(endNode) + " "+ str(startNode))
-		#if endNode in self.matrix[startNode]:
-		return self.path + str(endNode)
+				self.path += str(m)
+				self.depthFirstSearchPath(searchValue, m, True)
+		if self.path[-1:] != ' ': # return if complete path
+			return self.path
 
 		
 	def breadthFirstSearch(self, searchValue, node=0):
@@ -100,7 +104,12 @@ if __name__ == "__main__":
 	Lst.add(5,4)
 	Lst.add(6,5)
 	print(Lst)
-	print("Path to node 3: " + str(Lst.Path(0,6)))
+	# First variable for depthFirstSearchPath is the node to search for
+	# second variable is for the root node to search from
+	# There's two directed graphs in the node
+	print("depthFirstSearchPath(5,4): " + str(Lst.depthFirstSearchPath(5,4)))
+	print("depthFirstSearchPath(3): " + str(Lst.depthFirstSearchPath(3)))
+	print("self.path: " + str(Lst.path))
 
 
 
