@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Binary Search Tree
+# Q4.2 - Minimal Tree
 
 class BinaryNode:
 	def __init__(self, data=None, left=None, right=None):
@@ -73,13 +73,20 @@ def sidewaysTree(node, level=0, last=None):
 			print(' ' * 4 * level + char, node.data)
 		sidewaysTree(node.right, level + 1, False)
  
- 
+def arrayToBST(arr):
+	return createMinimalBST(arr, 0, len(arr)-1)
+
+def createMinimalBST(arr, start, end):
+	if start > end:
+		return None
+	mid = (start + end) // 2
+	return BinaryNode(arr[mid], createMinimalBST(arr, start, mid - 1), createMinimalBST(arr, mid + 1 , end))
+
 if __name__ == "__main__":
-	root = BinaryNode(3)
-	root.insert(2)
-	root.insert(1)
-	root.insert(5)
-	root.insert(4)
+	arr = [15,2,3,4,5,6,7,8,9,10,11,12,13,14,1]
+	arr.sort()
+	print("Sorted Array/List: " + str(arr))
+	root = arrayToBST(arr)
 	print('inorder (ascending order): ', end='')
 	root.inorder_traversal()
 	print('\npreorder (root is first node visited): ', end='')
@@ -87,6 +94,6 @@ if __name__ == "__main__":
 	print('\npostorder (root is last node visited): ', end='')
 	root.postorder_traversal()
 	print('\nsideways tree (left leafs of tree at top of page):')
-	print('|lvl'*10) # seperates each level of tree
+	print('|lvl'*4) # seperates each level of tree
 	sidewaysTree(root)
 	
